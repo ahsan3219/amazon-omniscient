@@ -270,6 +270,7 @@ export default function SettingsPage() {
             >
               <option value="qwen">Qwen (Default)</option>
               <option value="anthropic">Anthropic (Claude)</option>
+              <option value="gemini">Google Gemini</option>
               <option value="openai">OpenAI (GPT)</option>
               <option value="ollama">Ollama (Local)</option>
             </select>
@@ -282,7 +283,7 @@ export default function SettingsPage() {
           </div>
           <div>
             <label className="text-sm font-medium">Model</label>
-            <Input value={llmModel} onChange={(e) => setLlmModel(e.target.value)} placeholder="e.g., qwen-max-latest" />
+            <Input value={llmModel} onChange={(e) => setLlmModel(e.target.value)} placeholder={llmProvider === "gemini" ? "e.g., gemini-2.5-flash" : "e.g., qwen-max-latest"} />
           </div>
           <div>
             <label className="text-sm font-medium">API Key</label>
