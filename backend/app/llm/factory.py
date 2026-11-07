@@ -8,7 +8,8 @@ def create_llm_client(settings) -> BaseLLMClient:
     Factory function: creates the appropriate LLM client based on settings.
 
     LLM_PROVIDER=qwen      -> QwenClient via DashScope API (DEFAULT)
-    LLM_PROVIDER=anthropic  -> AnthropicClient
+    LLM_PROVIDER=anthropic -> AnthropicClient
+    LLM_PROVIDER=gemini    -> GeminiClient
     LLM_PROVIDER=openai     -> OpenAIClient
     LLM_PROVIDER=local      -> OpenAIClient pointed at a local server (Ollama, vLLM, llama.cpp, etc.)
     LLM_PROVIDER=ollama     -> Alias for local, defaults to http://localhost:11434/v1
@@ -30,6 +31,14 @@ def create_llm_client(settings) -> BaseLLMClient:
         return AnthropicClient(
             api_key=settings.ANTHROPIC_API_KEY,
             model=settings.LLM_MODEL or "claude-sonnet-4-20250514",
+        )
+
+    elif provider == "gemini":
+        from app.llm.gemini_client import GeminiClient
+
+        return GeminiClient(
+            api_key=settings.GEMINI_API_KEY,
+            model=settings.LLM_MODEL or "gemini-2.5-flash",
         )
 
     elif provider == "openai":
@@ -62,5 +71,5 @@ def create_llm_client(settings) -> BaseLLMClient:
     else:
         raise ValueError(
             f"Unknown LLM_PROVIDER: '{provider}'. "
-            f"Supported providers: qwen, anthropic, openai, local, ollama"
+            f"Supported providers: qwen, anthropic, gemini, openai, local, ollama"
         )

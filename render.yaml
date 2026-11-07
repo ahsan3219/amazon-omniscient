@@ -1,0 +1,45 @@
+# Render Blueprint for the API and Next.js UI.
+# IMPORTANT: Render Free does not offer free Background Worker services.
+# Celery worker/beat are intentionally NOT declared here; see DEPLOY_RENDER_FREE.md.
+services:
+  - type: web
+    name: omniscient-api
+    runtime: docker
+    plan: free
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: CELERY_BROKER_URL
+        sync: false
+      - key: CELERY_RESULT_BACKEND
+        sync: false
+      - key: LLM_PROVIDER
+        value: gemini
+      - key: LLM_MODEL
+        value: gemini-2.5-flash
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: APP_SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: LOG_LEVEL
+        value: INFO
+
+  - type: web
+    name: omniscient-frontend
+    runtime: node
+    plan: free
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+      - key: INTERNAL_API_URL
+        sync: false
