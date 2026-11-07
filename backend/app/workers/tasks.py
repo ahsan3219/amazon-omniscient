@@ -169,6 +169,7 @@ def _get_llm_client():
 _LLM_KEY_FIELD_BY_PROVIDER = {
     "qwen": "DASHSCOPE_API_KEY",
     "anthropic": "ANTHROPIC_API_KEY",
+    "gemini": "GEMINI_API_KEY",
     "openai": "OPENAI_API_KEY",
     "local": "OPENAI_API_KEY",
     "ollama": "OPENAI_API_KEY",
