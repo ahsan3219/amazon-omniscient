@@ -43,6 +43,7 @@ class Settings(BaseSettings):
     QWEN_BASE_URL: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
     ANTHROPIC_API_KEY: str = ""
     GEMINI_API_KEY: str = ""
+    GEMINI_API_KEY: str = ""
     OPENAI_API_KEY: str = ""
     OPENAI_BASE_URL: str = ""
     # Base URL for a local Ollama server. Set by docker-compose to the bundled
